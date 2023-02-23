@@ -25,7 +25,7 @@ const Widgets = [
 //         component: 'PostRequirements',
 //         matcher: ['Products']
 //     }
-    ]
+]
 
 /**
  * This service returns the widget applicable for any page visit.
@@ -33,7 +33,7 @@ const Widgets = [
  * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
  */
 export const findWidgetByEvent = (event) => {
-    return Widgets.find((widget) => widget.event === event)
+  return Widgets.find((widget) => widget.event === event)
 }
 
 /**
@@ -42,7 +42,7 @@ export const findWidgetByEvent = (event) => {
  * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
  */
 export const findWidgetByRoute = (route) => {
-    return Widgets.filter((widget) => widget.type === 'PAGE_VIEW').find((widget) => widget.matcher.indexOf(route) > -1);
+  return Widgets.filter((widget) => widget.type === "PAGE_VIEW").find((widget) => widget.matcher.indexOf(route) > -1);
 }
 
 /**
@@ -51,5 +51,5 @@ export const findWidgetByRoute = (route) => {
  * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
  */
 export const findInlineWidget= (componentName) => {
-    return Widgets.filter((widget) => widget.type === 'Inline').find((widget) => widget.matcher.indexOf(componentName) > -1);
+  return Widgets.filter((widget) => widget.type === "Inline").find((widget) => widget.matcher.indexOf(componentName) > -1);
 }

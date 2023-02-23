@@ -3,7 +3,7 @@ import AgeVerification from "./AgeVerification";
 import PostRequirements from "./PostRequirements";
 
 export default {
-    Customizations: CustomizationForm,
-    AgeVerification,
-    PostRequirements
+  Customizations: CustomizationForm,
+  AgeVerification,
+  PostRequirements
 }
