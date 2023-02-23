@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "type": "PAGE_VIEW",
+    "component": "AgeVerification",
+    "matcher": [
+      "/products/2",
+      "/products/4"
+    ]
+  },
+  {
+    "id": 2,
+    "type": "Interstitial",
+    "component": "Customizations",
+    "event": "BUY_CLICK"
+  },
+  {
+    "id": 3,
+    "type": "Inline",
+    "component": "PostRequirements",
+    "matcher": [
+      "Products"
+    ]
+  }
+]

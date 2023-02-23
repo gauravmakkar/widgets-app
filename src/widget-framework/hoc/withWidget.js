@@ -1,10 +1,16 @@
 import {findInlineWidget} from "../services/widgetService";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Widgets from "../../widgets";
 
 const withWidget = (Component) => {
   return function WidgetComponent(props) {
-    const widget = findInlineWidget(Component.name);
+    const [widget, setWidget] = useState(null);
+    const loadInlineWidget = async () => {
+      setWidget(await findInlineWidget(Component.name))
+    }
+    useEffect(() => {
+      loadInlineWidget();
+    })
     const WidgetComponent = widget && Widgets[widget.component];
     return (
       <>

@@ -12,8 +12,8 @@ const WidgetProvider = ({children}) => {
   const navigate = useNavigate();
   const [widget, setWidget] = useState(null);
 
-  const loadWidgetForRoute = (currentUrl) => {
-    setWidget(findWidgetByRoute(currentUrl));
+  const loadWidgetForRoute = async (currentUrl) => {
+    setWidget(await findWidgetByRoute(currentUrl));
   }
 
   /**
@@ -29,13 +29,13 @@ const WidgetProvider = ({children}) => {
      * @param action
      */
   const dispatcher = ({type, action}) => {
-    const widget = findWidgetByEvent(type);
-    if (!widget) {
-      action();
-    } else {
-      setWidget({...widget, callback: action})
-    }
-
+    findWidgetByEvent(type).then((widget)=>{
+      if (!widget) {
+        action();
+      } else {
+        setWidget({...widget, callback: action})
+      }
+    });
   }
 
   /**

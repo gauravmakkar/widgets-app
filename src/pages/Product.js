@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,12 +9,21 @@ import {useWidgets} from "../widget-framework/providers/WidgetProvider";
 import withWidget from "../widget-framework/hoc/withWidget";
 import {getBookById} from "../services/bookService";
 import {saveOrder} from "../services/orderService";
+import Spinner from "../components/Spinner";
 
 function Product() {
   const {id} = useParams();
   const {dispatcher} = useWidgets();
   const navigate = useNavigate();
-  const book = getBookById(id);
+  const [book, setBook] = useState(null);
+
+  const loadBook = async () => {
+    setBook(await getBookById(id));
+  }
+
+  useEffect(() => {
+    loadBook()
+  })
 
   function handleSelect() {
     dispatcher({
@@ -26,11 +35,12 @@ function Product() {
     })
   }
 
+
   return (
     <Container>
       <Row>
-        <Col key={book.id}>
-          <Card className="text-center" style={{marginTop: 20}}>
+        <Col>
+          {book && <Card className="text-center" style={{marginTop: 20}}>
             <Card.Header>Book</Card.Header>
             <Card.Body>
               <Card.Title>{book.title}</Card.Title>
@@ -40,7 +50,8 @@ function Product() {
               <Button variant="primary" onClick={handleSelect}>Buy</Button>
             </Card.Body>
             <Card.Footer className="text-muted">₹ {book.price}/-</Card.Footer>
-          </Card>
+          </Card>}
+          {!book && <Spinner/>}
         </Col>
       </Row>
     </Container>

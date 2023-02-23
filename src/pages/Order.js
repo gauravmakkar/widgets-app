@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import {getOrder} from "../services/orderService";
 import {useEffect, useState} from "react";
-import Spinner from "react-bootstrap/Spinner";
+import Spinner from "../components/Spinner";
 import withWidget from "../widget-framework/hoc/withWidget";
 
 function Order() {
@@ -39,11 +39,7 @@ function Order() {
               return <div key={key}>{extension.label}: {extension.value}</div>
             })}</Card.Footer>}
           </Card>}
-          {!order && <div className="text-center">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>}
+          {!order && <Spinner/>}
         </Col>
       </Row>
     </Container>
