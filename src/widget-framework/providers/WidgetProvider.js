@@ -1,8 +1,11 @@
 import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router";
 import React, {useContext, useEffect, useState} from "react";
-import { findWidgetByEvent, findWidgetByRoute } from "../services/widgetService";
+import { findWidgetByEvent, findWidgetByRoute, getWidgets } from "../services/widgetService";
 import Widgets from "../../widgets";
+import useFetch from "../../hooks/useFetch";
+import GenericError from "../../components/Error";
+import Spinner from "../../components/Spinner";
 
 
 export const WidgetContext = React.createContext(null);
@@ -11,17 +14,29 @@ const WidgetProvider = ({children}) => {
   let location = useLocation();
   const navigate = useNavigate();
   const [widget, setWidget] = useState(null);
+  const [widgets, setWidgets] = useState([]);
+  const {fetch: fetchWidgets, loading, error} = useFetch({
+    load: getWidgets, onComplete: (list) => {
+      setWidgets(list)
+    }
+  });
+
+  useEffect(() => {
+    fetchWidgets()
+  }, []);
 
   const loadWidgetForRoute = async (currentUrl) => {
-    setWidget(await findWidgetByRoute(currentUrl));
+    setWidget(await findWidgetByRoute(widgets, currentUrl));
   }
 
   /**
      * Will listen for route changes and check if any widget exists for the desired route.
      */
   useEffect(() => {
-    loadWidgetForRoute(location.pathname)
-  }, [location.pathname]);
+    if (widgets.length > 0) {
+      loadWidgetForRoute(location.pathname)
+    }
+  }, [widgets, location.pathname]);
 
   /**
      * Will check if the widget exists for a desired action.
@@ -60,7 +75,9 @@ const WidgetProvider = ({children}) => {
   const WidgetComponent = widget && Widgets[widget.component];
 
   return <WidgetContext.Provider value={{dispatcher: dispatcher}}>
-    {children}
+    {error && <GenericError/>}
+    {loading && <Spinner/>}
+    {!error && !loading && children}
     {widget && <WidgetComponent {...widgetProps}/>}
   </WidgetContext.Provider>;
 };

@@ -3,15 +3,18 @@
  */
 
 /**
- * This is the list of widgets possibly sourced from any widget authoring service.
- * @type {({component: string, id: number, type: string, title: string, matcher: [string, string]}|{component: string, id: number, title: string, type: string, event: string})[]}
+ * This service returns the list of widgets for the user.
+ * @returns {Promise<any>}
  */
-
+export const getWidgets = async () => {
+  const response =  await fetch("/db/widgets.json");
+  return await response.json();
+}
 
 /**
- * This service returns the widget applicable for any page visit.
+ * This service returns the widget applicable for any user action
  * @param event
- * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
+ * @returns {Promise<*>}
  */
 export const findWidgetByEvent = async (event) => {
   const response =  await fetch("/db/widgets.json");
@@ -20,23 +23,19 @@ export const findWidgetByEvent = async (event) => {
 }
 
 /**
- * This service returns the widget applicable to any user action.
+ * This service returns the widget applicable for any page visit.
  * @param route
- * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
+ * @returns {Promise<*>}
  */
-export const findWidgetByRoute = async (route) => {
-  const response =  await fetch("/db/widgets.json");
-  const widgets =  await response.json();
+export const findWidgetByRoute = async (widgets, route) => {
   return widgets.filter((widget) => widget.type === "PAGE_VIEW").find((widget) => widget.matcher.indexOf(route) > -1);
 }
 
 /**
  * This service returns the inline widget applicable to any component.
  * @param componentName
- * @returns {{component: string, id: number, type: string, title: string, matcher: string[]} | {component: string, id: number, title: string, type: string, event: string}}
+ * @returns {Promise<*>}
  */
-export const findInlineWidget= async (componentName) => {
-  const response =  await fetch("/db/widgets.json");
-  const widgets =  await response.json();
+export const findInlineWidget= async (widgets, componentName) => {
   return widgets.filter((widget) => widget.type === "Inline").find((widget) => widget.matcher.indexOf(componentName) > -1);
 }
