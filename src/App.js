@@ -21,7 +21,7 @@ function App() {
       <header>
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand as={Link} to="/">Book Shelf</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">MyBooks</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto" activeKey={activeNav} onSelect={handleSelect}>
@@ -35,7 +35,6 @@ function App() {
 
       <main>
         <Routes/>
-
       </main>
     </WidgetProvider>
   );
