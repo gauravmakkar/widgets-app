@@ -1,7 +1,7 @@
 import {useLocation} from "react-router-dom";
 import {useNavigate} from "react-router";
 import React, {useContext, useEffect, useState} from "react";
-import { findWidgetByEvent, findWidgetByRoute, getWidgets } from "../services/widgetService";
+import {findInlineWidget as findInlineWidgetService, findWidgetByEvent, findWidgetByRoute, getWidgets} from "../services/widgetService";
 import Widgets from "../../widgets";
 import useFetch from "../../hooks/useFetch";
 import GenericError from "../../components/Error";
@@ -27,6 +27,10 @@ const WidgetProvider = ({children}) => {
 
   const loadWidgetForRoute = async (currentUrl) => {
     setWidget(await findWidgetByRoute(widgets, currentUrl));
+  }
+
+  const findInlineWidget = async (component) => {
+    return await findInlineWidgetService(widgets, component);
   }
 
   /**
@@ -74,7 +78,7 @@ const WidgetProvider = ({children}) => {
 
   const WidgetComponent = widget && Widgets[widget.component];
 
-  return <WidgetContext.Provider value={{dispatcher: dispatcher}}>
+  return <WidgetContext.Provider value={{dispatcher: dispatcher, findInlineWidget: findInlineWidget}}>
     {error && <GenericError/>}
     {loading && <Spinner/>}
     {!error && !loading && children}

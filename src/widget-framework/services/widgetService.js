@@ -28,7 +28,7 @@ export const findWidgetByEvent = async (event) => {
  * @returns {Promise<*>}
  */
 export const findWidgetByRoute = async (widgets, route) => {
-  return widgets.filter((widget) => widget.type === "PAGE_VIEW").find((widget) => widget.matcher.indexOf(route) > -1);
+  return await widgets.filter((widget) => widget.type === "PAGE_VIEW").find((widget) => widget.matcher.indexOf(route) > -1);
 }
 
 /**
@@ -37,5 +37,5 @@ export const findWidgetByRoute = async (widgets, route) => {
  * @returns {Promise<*>}
  */
 export const findInlineWidget= async (widgets, componentName) => {
-  return widgets.filter((widget) => widget.type === "Inline").find((widget) => widget.matcher.indexOf(componentName) > -1);
+  return await widgets.filter((widget) => widget.type === "Inline").find((widget) => widget.matcher.indexOf(componentName) > -1);
 }
