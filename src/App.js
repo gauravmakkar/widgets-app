@@ -7,8 +7,6 @@ import "./App.css"
 import Routes from "./Routes";
 import WidgetProvider from "./widget-framework/providers/WidgetProvider";
 
-
-
 function App() {
   const [activeNav, setActiveNav] = useState("1");
 
