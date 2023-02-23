@@ -37,6 +37,13 @@
   }
 }
 
+.home-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(50vh - 56px);
+}
+
 .book-description{
   display: -webkit-box;
   -webkit-line-clamp: 4;
