@@ -10,7 +10,7 @@ const withWidget = (Component) => {
     }
     useEffect(() => {
       loadInlineWidget();
-    })
+    }, []);
     const WidgetComponent = widget && Widgets[widget.component];
     return (
       <>

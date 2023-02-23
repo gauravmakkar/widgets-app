@@ -10,20 +10,26 @@ import withWidget from "../widget-framework/hoc/withWidget";
 import {getBookById} from "../services/bookService";
 import {saveOrder} from "../services/orderService";
 import Spinner from "../components/Spinner";
+import useFetch from "../hooks/useFetch";
+import NoResults from "../components/NoResults";
+import GenericError from "../components/Error";
 
 function Product() {
   const {id} = useParams();
   const {dispatcher} = useWidgets();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
-
-  const loadBook = async () => {
-    setBook(await getBookById(id));
-  }
+  const {fetch: fetchBook, loading, error} = useFetch({
+    load: async ()=> {
+      return await getBookById(id)
+    }, onComplete: (book) => {
+      setBook(book)
+    }
+  });
 
   useEffect(() => {
-    loadBook()
-  })
+    fetchBook()
+  }, []);
 
   function handleSelect() {
     dispatcher({
@@ -51,7 +57,9 @@ function Product() {
             </Card.Body>
             <Card.Footer className="text-muted">₹ {book.price}/-</Card.Footer>
           </Card>}
-          {!book && <Spinner/>}
+          {!loading && !error && !book && <NoResults/>}
+          {error && <GenericError/>}
+          {loading && <Spinner/>}
         </Col>
       </Row>
     </Container>
