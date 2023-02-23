@@ -8,7 +8,8 @@ const CustomizationForm = ({done, abort, widget}) => {
     const form = event.target;
     done({message: {label: "Message to the seller",value:form.message.value}, giftWrapped: {label: "Gift wrap this product?", value:form.giftWrapped.value}})
   }
-  return (<Modal show={widget} onHide={abort}>
+  return (<Modal show={widget} onHide={abort} backdrop="static"
+    keyboard={false} centered>
     <Modal.Header closeButton>
       <Modal.Title>Customizations</Modal.Title>
     </Modal.Header>
