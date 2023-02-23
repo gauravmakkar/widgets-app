@@ -12,7 +12,9 @@
     "id": 2,
     "type": "Interstitial",
     "component": "Customizations",
-    "event": "BUY_CLICK"
+    "matcher": [
+      "BUY_CLICK"
+    ]
   },
   {
     "id": 3,

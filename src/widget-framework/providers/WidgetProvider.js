@@ -48,7 +48,7 @@ const WidgetProvider = ({children}) => {
      * @param action
      */
   const dispatcher = ({type, action}) => {
-    findWidgetByEvent(type).then((widget)=>{
+    findWidgetByEvent(widgets, type).then((widget)=>{
       if (!widget) {
         action();
       } else {

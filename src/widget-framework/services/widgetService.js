@@ -16,10 +16,8 @@ export const getWidgets = async () => {
  * @param event
  * @returns {Promise<*>}
  */
-export const findWidgetByEvent = async (event) => {
-  const response =  await fetch("/db/widgets.json");
-  const widgets =  await response.json();
-  return widgets.find((widget) => widget.event === event)
+export const findWidgetByEvent = async (widgets, event) => {
+  return await widgets.filter((widget) => widget.type === "Interstitial").find((widget) => widget.matcher.indexOf(event) > -1);
 }
 
 /**
