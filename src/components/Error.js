@@ -1,7 +1,7 @@
 import React from "react";
 
 const GenericError = () => {
-  return <div>Some error occurred!</div>
+  return <div>something went wrong</div>
 }
 
 export default GenericError;
