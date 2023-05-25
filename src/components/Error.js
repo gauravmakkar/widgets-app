@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 
-const GenericError = () => {
-  return <div>Some error occurred!</div>
-}
+const Error = () => {
+  return (
+    <div>something went wrong</div>
+  );
+};
 
-export default GenericError;
+export default Error;
